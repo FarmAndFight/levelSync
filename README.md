@@ -2,6 +2,8 @@
 
 levelSync is a spigot plugin which help you to synchronize minecraft vanilla experience between yours servers using MySQL.
 
+__IMPORTANT:__ This plugin do no support player in offline mode, please enable online-mode on bungeecord
+
 # Installation
 
 - Put the .jar file in your spigot (not bungeecord) plugin folder
