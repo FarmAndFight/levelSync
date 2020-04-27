@@ -1,0 +1,7 @@
+mysql:
+  host: "example.com"
+  port: 3306
+  username: "username"
+  password: "password"
+  database: "minecraft"
+  table: "playerLevel"

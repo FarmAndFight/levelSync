@@ -1,0 +1,6 @@
+name: levelSync
+main: fr.topeka.levelSync.Main
+version: 1.0-beta
+author: Topeka_
+description:  levelSync - a Minecraft plugin which sync vanilla experience between servers
+website: https://github.com/sexiestchiba/levelSync
