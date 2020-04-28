@@ -4,7 +4,7 @@ levelSync is a spigot plugin which help you to synchronize minecraft vanilla exp
 
 __IMPORTANT:__ This plugin do no support player in offline mode, please enable online-mode on bungeecord
 
-# Installation
+## Installation
 
 - Put the .jar file in your spigot (not bungeecord) plugin folder
 
@@ -12,7 +12,7 @@ __IMPORTANT:__ This plugin do no support player in offline mode, please enable o
 
 - restart server, enjoy !
 
-# Configuration
+## Configuration
 
 
 
@@ -29,3 +29,8 @@ mysql:
   # table name, automatically created by the plugin
   table: "playerLevel"
 ```
+
+## Need help ?
+
+you can discuss my plugin and ask for help here: 
+https://www.spigotmc.org/threads/levelsync.434249/
