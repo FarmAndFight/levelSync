@@ -14,16 +14,20 @@ import fr.topeka.levelSync.sql.Sql;
  */
 public class Main extends JavaPlugin{
 
-	Sql sql;
+	private Sql _sql;
+	public String msg_syncError, msg_dbError;
+	
 	
 	@Override
 	public void onEnable() {
 		try {
 			this.saveDefaultConfig();
-			sql = new Sql(this);
+			_sql = new Sql(this);
 			PluginManager pm = getServer().getPluginManager();
-			pm.registerEvents(new EventsListener(this, sql), this);
+			pm.registerEvents(new EventsListener(this, _sql), this);
 			this.getLogger().info("[levelSync] Plugin enabled");
+			msg_syncError = getConfig().getString("message.syncError");
+			msg_dbError = getConfig().getString("message.dbError");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			this.getLogger().warning("An error occured during loading, disabling plugin...");
@@ -33,7 +37,7 @@ public class Main extends JavaPlugin{
 	
 	@Override
 	public void onDisable() {
-		sql.closeConnection();
+		_sql.closeConnection();
 		this.getLogger().info("Plugin disabled");
 	}
 }

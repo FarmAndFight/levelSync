@@ -38,7 +38,7 @@ public class EventsListener implements Listener {
 								p.setLevel((int) values[0]);
 							} catch (SQLException e) {
 								e.printStackTrace();
-								p.sendMessage("Couln't sync your experience");
+								p.sendMessage("[LevelSync] " + plugin.msg_syncError);
 							}
 						}
 					}
@@ -46,7 +46,7 @@ public class EventsListener implements Listener {
 				}
 			}, 20L);
 		}else {
-			p.sendMessage("Couln't sync your experience");
+			p.sendMessage("[LevelSync] " + plugin.msg_syncError);
 		}
 	}
 	
@@ -61,11 +61,11 @@ public class EventsListener implements Listener {
 					try {
 						sql.setPlayerLevel(p);
 					}catch(SQLException e) {
-						p.sendMessage("An error occured while trying to save your experience to database");
+						p.sendMessage("[LevelSync] " + plugin.msg_dbError);
 						e.printStackTrace();
 					}
 				}else {
-					p.sendMessage("An error occured while trying to save your experience to database");
+					p.sendMessage("[LevelSync] " + plugin.msg_dbError);
 				}
 				
 			}

@@ -16,15 +16,19 @@ public class Sql {
 	private Main plugin;
 	
 	private String host, database, table, username, password;
-	private int port = 3306;
+	private int port;
 	
 	public Sql(Main plugin) throws ClassNotFoundException, SQLException{
 		this.plugin = plugin;
 		this.loadConfig();
 		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection("jdbc:mysql://"+ host + ":" + port + "/" + database, username, password);
-		statement = connection.createStatement();
-		statement.executeUpdate("CREATE TABLE IF NOT EXISTS `" + this.table + "`("
+		this.connect();
+	}
+	
+	private void connect() throws SQLException{
+		this.connection = DriverManager.getConnection("jdbc:mysql://"+ host + ":" + port + "/" + database + "?autoReconnect=true", username, password);
+		this.statement = connection.createStatement();
+		this.statement.executeUpdate("CREATE TABLE IF NOT EXISTS `" + this.table + "`("
 				+ "`uuid` VARCHAR(36) NOT NULL,"
 				+ "`experience` FLOAT(2,1),"
 				+ "`level` INT(6)"
@@ -84,8 +88,7 @@ public class Sql {
 	
 	public boolean reConnect() {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://"+ host + ":" + port + "/" + database, username, password);
-			statement = connection.createStatement();
+			this.connect();
 			return true;
 		}catch(SQLException e) {
 			e.printStackTrace();
