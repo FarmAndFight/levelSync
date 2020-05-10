@@ -15,7 +15,6 @@ __IMPORTANT:__ This plugin do no support player in offline mode, please enable o
 ## Configuration
 
 
-
 ```YAML
 mysql:
   # mysql server hostname or ip adress
@@ -28,6 +27,11 @@ mysql:
   database: "minecraft"
   # table name, automatically created by the plugin
   table: "playerLevel"
+# You can change messages to translate its in your language
+message:
+  syncError: "Couln't sync your experience"
+  dbError: "An error occured while trying to save your experience to database"
+  
 ```
 
 ## Need help ?
