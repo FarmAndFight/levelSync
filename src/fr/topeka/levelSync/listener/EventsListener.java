@@ -24,13 +24,11 @@ public class EventsListener implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		Player p = event.getPlayer();
-		if(sql.checkConnection()) {
 			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
-				
 				@Override
 				public void run() {
-					if(p != null) {
+					Player p = event.getPlayer();
+					if(sql.checkConnection()) {
 						if(p.isOnline()) {
 							try {
 								float[] values = sql.getPlayerLevel(p);
@@ -41,19 +39,16 @@ public class EventsListener implements Listener {
 								p.sendMessage("[LevelSync] " + plugin.msg_syncError);
 							}
 						}
+					}else {
+						p.sendMessage("[LevelSync] " + plugin.msg_syncError);
 					}
-					
 				}
 			}, 20L);
-		}else {
-			p.sendMessage("[LevelSync] " + plugin.msg_syncError);
-		}
 	}
 	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
-
 			@Override
 			public void run() {
 				Player p = event.getPlayer();
@@ -67,9 +62,7 @@ public class EventsListener implements Listener {
 				}else {
 					p.sendMessage("[LevelSync] " + plugin.msg_dbError);
 				}
-				
-			}
-			
+			}		
 		});
 	}
 }
