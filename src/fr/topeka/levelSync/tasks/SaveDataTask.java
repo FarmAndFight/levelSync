@@ -21,7 +21,7 @@ public class SaveDataTask extends BukkitRunnable {
 		try {
 			main.getLogger().info("[LevelSync] Starting saving data task");
 			for(Player p : main.getServer().getOnlinePlayers()) {
-				main.getSql().setPlayerLevel(p);
+				main.getSql().sendPlayerLevel(p);
 				n++;
 			}
 			main.getLogger().info("[LevelSync] saving data task done for " + n + " players");

@@ -57,7 +57,7 @@ public class Sql {
 		return values;
 	}
 	
-	public void setPlayerLevel(Player player) throws SQLException{
+	public void sendPlayerLevel(Player player) throws SQLException{
 		UUID uuid = player.getUniqueId();
 		int level = player.getLevel();
 		float xp = player.getExp();
@@ -73,27 +73,9 @@ public class Sql {
 		}
 	}
 	
-	public boolean checkConnection() {
-		try {
-			if(connection == null || connection.isClosed() || !connection.isValid(3)) {
-				return reConnect();
-			}
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			plugin.getLogger().warning("Could not reconnect to database ! error: " + e.getMessage());
-			return false;
-		}
-	}
-	
-	public boolean reConnect() {
-		try {
-			this.connect();
-			return true;
-		}catch(SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+	public void checkConnection() throws SQLException {
+		if(connection == null || connection.isClosed() || !connection.isValid(1))
+			connect();
 	}
 	
 	public void closeConnection() {
@@ -102,8 +84,6 @@ public class Sql {
 				connection.close();
 				connection = null;
 			}
-	}catch(SQLException e) {
-		e.printStackTrace();
-	}
+	}catch(SQLException ignored) {}
 	}
 }

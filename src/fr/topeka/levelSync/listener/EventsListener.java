@@ -28,19 +28,15 @@ public class EventsListener implements Listener {
 				@Override
 				public void run() {
 					Player p = event.getPlayer();
-					if(sql.checkConnection()) {
-						if(p.isOnline()) {
-							try {
-								float[] values = sql.getPlayerLevel(p);
-								p.setExp(values[1]);
-								p.setLevel((int) values[0]);
-							} catch (SQLException e) {
-								e.printStackTrace();
-								p.sendMessage("[LevelSync] " + plugin.msg_syncError);
-							}
-						}
-					}else {
+					try {
+						sql.checkConnection();
+						float[] values = sql.getPlayerLevel(p);
+						p.setExp(values[1]);
+						p.setLevel((int) values[0]);
+					} catch (SQLException e) {
 						p.sendMessage("[LevelSync] " + plugin.msg_syncError);
+						plugin.getLogger().warning("[LevelSync] " + plugin.msg_syncError);
+						e.printStackTrace();
 					}
 				}
 			}, 20L);
@@ -51,16 +47,13 @@ public class EventsListener implements Listener {
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
 			@Override
 			public void run() {
-				Player p = event.getPlayer();
-				if(sql.checkConnection()) {
-					try {
-						sql.setPlayerLevel(p);
-					}catch(SQLException e) {
-						p.sendMessage("[LevelSync] " + plugin.msg_dbError);
-						e.printStackTrace();
-					}
-				}else {
-					p.sendMessage("[LevelSync] " + plugin.msg_dbError);
+				try {
+					Player p = event.getPlayer();
+					sql.checkConnection();
+					sql.sendPlayerLevel(p);
+				}catch(SQLException e) {
+					plugin.getLogger().warning("[LevelSync] " + plugin.msg_dbError);
+					e.printStackTrace();
 				}
 			}		
 		});
